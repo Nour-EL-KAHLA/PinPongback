@@ -5,6 +5,7 @@ const LeaderBoardSchema = new mongoose.Schema({
   fullName: String,
   imageUrl: String,
   winrate: Number,
+  loserate: Number,
 });
 
 const LeaderBoard = mongoose.model("LeaderBoard", LeaderBoardSchema);
