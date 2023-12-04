@@ -11,6 +11,10 @@ const QueueSchema = new mongoose.Schema({
         type: String,
       },
       imageUrl: String,
+      joindate: {
+        type: Date,
+        default: Date.now,
+      },
     },
   ],
 });

@@ -1,4 +1,5 @@
 const LeaderBoard = require("../model/leaderboard");
+const { leaveuser } = require("../utils/methods");
 
 exports.getAllLeaderBoard = async (req, res) => {
   try {
@@ -59,6 +60,7 @@ exports.addloseForUser = async (req, res) => {
           runValidators: true,
         }
       );
+      const newQueue = await leaveuser(req.body.tableId, userId);
       res.status(200).json(newboard);
     } else {
       const newboard = new LeaderBoard({
@@ -69,6 +71,7 @@ exports.addloseForUser = async (req, res) => {
         loserate: 1,
       });
       const addedboard = await newboard.save();
+      const newQueue = await leaveuser(req.body.tableId, userId);
       res.status(200).json(addedboard);
     }
   } catch (err) {

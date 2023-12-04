@@ -1,11 +1,11 @@
 const Queue = require("../model/queue");
+const { leaveuser } = require("../utils/methods");
 
 exports.getAllqueue = async (req, res) => {
   // req = request
   // res = response
   try {
     const queues = await Queue.find();
-    console.log("hahah");
     res.status(200).json(queues);
   } catch (err) {
     res.status(400).json();
@@ -67,20 +67,7 @@ exports.addUserToQueue = async (req, res) => {
 };
 exports.leaveUserFromQueue = async (req, res) => {
   try {
-    const queue = await Queue.find({
-      tableId: req.body.tableId,
-    });
-    const newlist = queue[0].users.filter(
-      (user) => user.userId !== req.body.userId
-    );
-    const newQueue = await Queue.findByIdAndUpdate(
-      queue[0]._id,
-      {
-        users: newlist,
-      },
-      //run validators bech nupdati taamlch tab jdid
-      { new: true, runValidators: true }
-    );
+    const newQueue = await leaveuser(req.body.tableId, req.body.userId);
 
     res.status(200).json(newQueue);
   } catch (err) {
