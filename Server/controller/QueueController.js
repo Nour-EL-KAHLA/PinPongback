@@ -6,6 +6,7 @@ exports.getAllqueue = async (req, res) => {
   // res = response
   try {
     const queues = await Queue.find();
+
     res.status(200).json(queues);
   } catch (err) {
     res.status(400).json();
